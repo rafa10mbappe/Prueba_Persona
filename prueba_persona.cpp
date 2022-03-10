@@ -101,10 +101,25 @@ class Persona{
     }
 };
 
+vector<int> pide3ParaVip(){
+  vector<int> x;
+
+  for (int i=0; i < 3; i++){
+    int y = 0;
+
+    cout << "Introduce el " << i+1 << " numero para el vector que te designa el VIP: ";
+    cin >> y;
+    x.push_back(y);
+  }
+
+  return x;
+}
+
 // -----------------------------------------------------------------------------------------
 
 int main(){
-  Persona rafa("Rafa", "7722883S", 21, {10, 1, 2});
+  vector<int> paraElVip = pide3ParaVip();
+  Persona rafa("Rafa", "7722883S", 21, paraElVip);
 
   cout << "Creada la persona 'rafa', al imprimir sale: " << endl;
   rafa.imprimir();
