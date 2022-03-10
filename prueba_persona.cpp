@@ -26,15 +26,42 @@ class Persona{
     string nombre;
     string dni;
     int edad;
+    bool vip;
 
     // Funciones
+    bool cambiarVip(vector<int> x){
+      bool resultado = false;
+      int sumatoria = 0;
+      int extra = 0;
 
+      for (int i : x){
+        sumatoria += i;
+      }
+
+      if (sumatoria%11 == 0){
+        resultado = true;
+      } else if (sumatoria%13 == 0){
+            cout << "Puedes introducir dos numeros mas: " << endl;
+            for (int i = 0; i < 2; i++){
+            cout << "Introduce numero: ";
+            cin >> extra;
+            sumatoria += extra;
+            }
+
+            if (sumatoria%11 == 0){
+                resultado = true;
+            }
+        }
+
+      return resultado;
+    }
 
   public:
-    Persona(string nombre, string dni, int edad=18){
+    Persona(string nombre, string dni, int edad=18, vector<int> vip = {1, 1, 1}){
       this->nombre = nombre;
       this->dni = dni;
       this->edad = edad;
+      this->vip = cambiarVip(vip);
     }
 
     string getNombre(){
@@ -62,7 +89,11 @@ class Persona{
     }
 
     void imprimir(){
-      cout << "Me llamo " << this->nombre << ", tengo " << this->edad << " anios y mi DNI es " << this->dni << endl;
+      if (this->vip == 1){
+        cout << "Me llamo " << this->nombre << ", tengo " << this->edad << " anios, mi DNI es " << this->dni << " y soy VIP" << endl;
+      } else{
+        cout << "Me llamo " << this->nombre << ", tengo " << this->edad << " anios, mi DNI es " << this->dni << " y no soy VIP" << endl;
+      }
     }
 
     bool mayorDeEdad(){
@@ -73,7 +104,7 @@ class Persona{
 // -----------------------------------------------------------------------------------------
 
 int main(){
-  Persona rafa("Rafa", "7722883S", 21);
+  Persona rafa("Rafa", "7722883S", 21, {10, 1, 2});
 
   cout << "Creada la persona 'rafa', al imprimir sale: " << endl;
   rafa.imprimir();
@@ -96,8 +127,13 @@ int main(){
 
   cout << endl;
 
-  cout << "Creado un metodo que nos da un bool 'true (1)' si la persona es mayor de edad, o 'false (0)' si no lo es: " << endl;
-  cout << "La persona " << rafa.getNombre() << " es mayor de edad?: " << rafa.mayorDeEdad();
+  cout << "Creado un metodo que nos da un bool 'true (1)' si la persona es mayor de edad, o 'false (0)' si no lo es\nCon un if y un else damos un mensaje de si es mayor de edad o no: " << endl;
+
+  if (rafa.mayorDeEdad()){
+    cout << "La persona " << rafa.getNombre() << " es mayor de edad" << endl;
+  } else {
+    cout << "La persona " << rafa.getNombre() << " NO es mayor de edad" << endl;
+  }
 
   return 0;
 }
